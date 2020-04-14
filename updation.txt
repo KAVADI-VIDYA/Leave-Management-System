@@ -1,0 +1,18 @@
+update faculty set firstname='Manisha' where facultyid='cse101';
+update faculty set firstname='Ragavendra' where facultyid='cse105';
+update faculty set firstname='Vidya' where facultyid='cse102';
+update faculty set firstname='Basavaraj' where facultyid='cse103';
+update faculty set firstname='Basavaraj' where facultyid='ece108';
+
+
+update faculty set lastname='Tapale' where facultyid='cse101';
+update faculty set lastname='Patil' where facultyid='cse105';
+update faculty set lastname='Kavadi' where facultyid='cse102';
+update faculty set lastname='Patil' where facultyid='cse103';
+update faculty set lastname='Katageri' where facultyid='ece108';
+
+update faculty set design='Asst_Professor' where facultyid='cse101';
+update faculty set design='Asst_Professor' where facultyid='cse105';
+update faculty set design='Administrator' where facultyid='cse102';
+update faculty set design='HOD' where facultyid='cse103';
+update faculty set design='Principal' where facultyid='ece108';

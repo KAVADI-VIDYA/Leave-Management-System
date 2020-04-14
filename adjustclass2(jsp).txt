@@ -1,0 +1,41 @@
+<%-- 
+    Document   : adjustclass2.jsp
+    Created on : 10 Nov, 2018, 3:26:31 PM
+    Author     : Samprada
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+    </head>
+    <body>
+        <%@page language="java" import="java.lang.*" %>
+        <%@page language="java" import="java.sql.*" %>
+        <%  String fid=(String)session.getAttribute("fid");
+            Connection con=(Connection)session.getAttribute("connection");
+            String sql="INSERT INTO CLASS_ADJUST VALUES(?,?,?,?,?,?,?,NULL)";
+            String[] date=request.getParameterValues("date");
+            String[] starttime=request.getParameterValues("starttime");
+            String[] endtime=request.getParameterValues("endtime");
+            String[] semester=request.getParameterValues("semester");
+            String[] division=request.getParameterValues("division");
+            String[] adjustedto=request.getParameterValues("adjustedto");
+            for(int i=0;date!=null && i<date.length;i++)
+            {
+                PreparedStatement ps=con.prepareStatement(sql);
+                ps.setString(1, fid);
+                ps.setString(2, date[i]);
+                ps.setString(3, starttime[i]);
+                ps.setString(4, endtime[i]);
+                ps.setString(5, semester[i]);
+                ps.setString(6, division[i]);
+                ps.setString(7, adjustedto[i]);
+                ps.execute();
+                
+            }
+          %>
+    </body>
+</html>

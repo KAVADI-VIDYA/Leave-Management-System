@@ -1,0 +1,54 @@
+<%-- 
+    Document   : applyleave.jsp
+    Created on : 9 Nov, 2018, 11:20:33 PM
+    Author     : Samprada
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <%@page  language="java" import="java.sql.*" %>
+        <%@page  language="java" import="java.lang.*" %>
+        
+        <% Statement stmt=(Statement)session.getAttribute("statement");
+           String fid=(String)session.getAttribute("fid");
+           String tol=request.getParameter("tol");
+           String applydate=request.getParameter("applydate");
+           String fromdate=request.getParameter("fromdate");
+           String todate=request.getParameter("todate");
+           String reason=request.getParameter("reason");
+           ResultSet rs1=stmt.executeQuery("select to_date('"+applydate+"','dd-mm-yyyy') from dual");
+           ResultSet rs2=stmt.executeQuery("select to_date('"+todate+"','dd-mm-yyyy') from dual");
+           while(rs1.next() && rs2.next()){
+             if(rs1.getString(1).compareTo(rs2.getString(1))==1){
+               
+             }
+           }
+           if(tol.equals("committed"))
+           {
+               ResultSet rs = stmt.executeQuery("select (to_date('"+todate+"','dd-mm-yyyy')- to_date('"+fromdate+"','dd-mm-yyyy')) difference_in_days from dual");
+               int count=0;
+               if(rs.next()){
+                   count=rs.getInt(1);
+               }
+               count++;
+               if(count%5==0){
+                   stmt.execute("INSERT INTO TEMP_LEAVE_DETAILS VALUES('"+fid+"','"+tol+"','"+todate+"','"+fromdate+"','"+applydate+"','"+reason+"',NULL,NULL)");
+                   response.sendRedirect("/Leave_management_system/adjustclass.jsp");
+               }else{
+                   out.println("<script language=javascript> alert('Not satisfied the Committed leave constraints!');</script>");
+                   response.sendRedirect("/Leave_management_system/applyleave.html");
+               }
+               
+           }else{
+               stmt.execute("INSERT INTO TEMP_LEAVE_DETAILS VALUES('"+fid+"','"+tol+"','"+todate+"','"+fromdate+"','"+applydate+"','"+reason+"',NULL,NULL)");
+               response.sendRedirect("/Leave_management_system/adjustclass.jsp");
+           }
+               %>
+    </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */ 
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+            color: white;
+        }
+    
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {height: 500px }
+    
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+      
+        }
+    
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #777;
+            padding: 10px;
+            text-align: center;
+            color: white;
+    
+        }
+    
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {height:auto;} 
+        }
+        /* Style the header */
+        header {
+            background-color: #666;
+            padding: 10px;
+            text-align: center;
+            font-size: 35px;
+            color: white;
+            height: 80px;
+        }
+        .mySlides {display:none;}
+        </style>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body>
+        <header>
+            <h2>Leave Management System</h2>
+        </header>
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>                        
+                    </button>
+                </div>
+                    <center><h2>WELCOME</h2></center>
+            </div>
+        </nav>
+  
+        <div class="container-fluid text-left">   
+            <div class="row content">
+                <div class="col-sm-2 sidenav">
+                    <center><form method="get" action="/Leave_management_system/facultylogin.html" style="margin-top: 0; margin-bottom: 8px;margin-left: 0px">
+                                <button type="submit">Faculty</button>
+                    </form></br>
+                    <form method="get" action="/Leave_management_system/hodlogin.html"
+                    style="margin-top: 0; margin-bottom: 8px">
+                        <button type="submit">HOD</button>
+                    </form>  </br>
+
+                    <form method="get" action="/Leave_management_system/principallogin.html"
+                    style="margin-top: 0; margin-bottom: 8px">
+                        <button type="submit">Principal</button>
+                    </form> </br>
+    
+                    <form method="get" action="/Leave_management_system/administratorlogin.html"
+                    style="margin-top: 0; margin-bottom: 8px">
+                        <button type="submit">Administrator</button>
+                    </form> </br></center>
+                </div>
+                <div class="col-sm-8 text-left"> 
+                    <img src="C:/Users/Samprada/Desktop/jani.jpg" width="500" height="300" style="margin-top:100px;margin-bottom:100px;margin-left:150px"/>
+                </div>
+            </div>
+        </div>
+
+        <footer class="container-fluid text-center">
+            <p>KLE Society's Dr. M. S. Sheshgiri College of Engineering and Technology.</p>
+        </footer>
+
+    </body>
+</html>

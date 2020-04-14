@@ -1,0 +1,48 @@
+<%-- 
+    Document   : facultylogin.jsp
+    Created on : 4 Nov, 2018, 11:44:45 AM
+    Author     : Samprada
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        
+    </head>
+  <body>
+      <%@ page language="java" import="java.sql.*"%>
+      <%@ page language="java" import="java.util.*"%>
+      
+      <% String pass,usr;
+         try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","system","root");
+            out.println("connection established");
+            Statement stmt=con.createStatement();
+            usr=request.getParameter("name");
+            pass=request.getParameter("psw");
+            ResultSet rs= stmt.executeQuery("SELECT a.username,password,facultyid FROM AUTHENTICATION a,FACULTY f WHERE a.username='"+usr+"' AND email='"+usr+"'");
+            if(rs.next())
+            {
+                if(rs.getString("username").equals(usr) && rs.getString("password").equals(pass))
+                {
+                    out.println("<script language=javascript> alert('Login Successfull!!');</script>");
+                    String fid=rs.getString("facultyid");
+                    session.setAttribute("username", usr);
+                    session.setAttribute("statement", stmt);
+                    session.setAttribute("fid", fid);
+                    response.sendRedirect("/Leave_management_system/faculty.jsp");
+                    
+                }else{
+                    out.println("<script language=javascript> alert('Enter correct username/password');</script>");
+                }
+            }
+
+         }catch(Exception e){
+             out.println(e.getMessage());
+         }%>
+      </body>
+</html>

@@ -1,0 +1,99 @@
+CREATE TABLE FACULTY (FACULTYID VARCHAR(10),
+                      FIRSTNAME VARCHAR(20),
+                      LASTNAME VARCHAR(15),
+                      DEPTID INT,
+                      DESIGN VARCHAR(25),
+                      GENDER VARCHAR(10),
+                      EMAIL VARCHAR(30),
+                      DOJ DATE,
+                      PHONE INT,
+                      USERNAME VARCHAR(30),
+                      PRIMARY KEY(FACULTYID),
+                      CONSTRAINT UC_FACULTY UNIQUE(EMAIL,USERNAME),
+                      FOREIGN KEY(DEPTID) REFERENCES DEPARTMENT(DEPTID)
+                      );
+  
+
+
+SQL>   desc faculty;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FACULTYID                                 NOT NULL VARCHAR2(10)
+ FIRSTNAME                                          VARCHAR2(20)
+ LASTNAME                                           VARCHAR2(15)
+ DEPTID                                             NUMBER(38)
+ DESIGN                                             VARCHAR2(25)
+ GENDER                                             VARCHAR2(10)
+ EMAIL                                              VARCHAR2(30)
+ DOJ                                                DATE
+ PHONE                                              NUMBER(38)
+ USERNAME                                           VARCHAR2(30)
+
+insert into faculty values('cse101','manisha','tapale',11,'professor','female','manisha@gmail.com','20-oct-2012',9944836547,'manisha@gmail.com');
+insert into faculty values('cse105','ragavendra','patil',11,'professor','male','patil@gmail.com','09-jun-2015',9945835475,'patil@gmail.com');
+insert into faculty values('cse102','vidya','kavadi',11,'administrator','female','vidya@gmail.com','06-jan-2012',9944836997,'vidya@gmail.com');
+insert into faculty values('cse103','samprada','ramesh',11,'hod','female','samprada@gmail.com','03-jan-2019',9988836997,'samprada@gmail.com');
+insert into faculty values('ece108','trupti','kavadi',12,'principal','female','trupti@gmail.com','09-jun-2013',9118836997,'trupti@gmail.com');
+
+
+
+
+SQL> select * from faculty;
+
+FACULTYID  FIRSTNAME            LASTNAME            DEPTID
+---------- -------------------- --------------- ----------
+DESIGN                    GENDER     EMAIL                          DOJ
+------------------------- ---------- ------------------------------ ---------
+     PHONE USERNAME
+---------- ------------------------------
+cse218     Manisha              Tapale                  11
+Asst_Professor            Female     manisha@gmail.com             16-JUN-15
+    987564 manisha1@gmail.com
+
+ece210     Rajeshri             Khanai                  12
+Asst_Professor            Female     rajeshri@gmail.com             05-JUN-13
+9900631248 rajeshri@gmail.com
+
+FACULTYID  FIRSTNAME            LASTNAME            DEPTID
+---------- -------------------- --------------- ----------
+DESIGN                    GENDER     EMAIL                          DOJ
+------------------------- ---------- ------------------------------ ---------
+     PHONE USERNAME
+---------- ------------------------------
+
+cse113     Savita               Bakare                  11
+Asst_Professor            Female     savita@gmail.com               18-JUN-14
+2145632142 savita@gmail.com
+
+cse105     Ragavendra           Patil                   11
+Asst_Professor            male       patil@gmail.com                09-JUN-15
+
+FACULTYID  FIRSTNAME            LASTNAME            DEPTID
+---------- -------------------- --------------- ----------
+DESIGN                    GENDER     EMAIL                          DOJ
+------------------------- ---------- ------------------------------ ---------
+     PHONE USERNAME
+---------- ------------------------------
+9945835475 patil@gmail.com
+
+cse102     Vidya                Kavadi                  11
+Administrator             female     vidya@gmail.com                06-JAN-12
+9944836997 vidya@gmail.com
+
+cse103     Basavaraj            Patil                   11
+
+FACULTYID  FIRSTNAME            LASTNAME            DEPTID
+---------- -------------------- --------------- ----------
+DESIGN                    GENDER     EMAIL                          DOJ
+------------------------- ---------- ------------------------------ ---------
+     PHONE USERNAME
+---------- ------------------------------
+HOD                       female     basavaraj@gmail.com            03-JAN-19
+9988836997 basavaraj@gmail.com
+
+ece108     Basavaraj            Katageri                12
+Principal                 female     katageri@gmail.com             09-JUN-13
+9118836997 katageri@gmail.com
+
+
+7 rows selected.

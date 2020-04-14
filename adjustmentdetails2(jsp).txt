@@ -1,0 +1,41 @@
+<%-- 
+    Document   : adjustmentdetails2.jsp
+    Created on : 12 Nov, 2018, 7:39:46 PM
+    Author     : Samprada
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+    </head>
+    <body>
+        <%@page language="java" import="java.lang.*" %>
+        <%@page language="java" import="java.sql.*" %>
+        
+        <% Statement stmt=(Statement)session.getAttribute("statement");
+           String fid=(String)session.getAttribute("fid");
+           Connection con=(Connection)session.getAttribute("connection");
+           String sql="UPDATE CLASS_ADJUST SET accepted=? WHERE facultyid=? AND date1=? AND starttime=? AND endtime=? AND adjustedto='"+fid+"'";
+           PreparedStatement ps=con.prepareStatement(sql);
+           ResultSet rs=stmt.executeQuery("SELECT firstname,lastname,ca.facultyid,date1,starttime,endtime,semester,division,accepted FROM FACULTY f,CLASS_ADJUST ca WHERE f.facultyid=ca.facultyid AND adjustedto='"+fid+"' AND accepted is NULL");
+            
+           int i=0;
+           while(rs.next())
+           {
+               String facid=rs.getString("facultyid");
+               Date date=rs.getDate("date1");
+               String sttime=rs.getString("starttime");
+               String entime=rs.getString("endtime");
+               ps.setString(1, request.getParameter("accept"+i));
+               ps.setString(2, facid);
+               ps.setDate(3, date);
+               ps.setString(4, sttime);
+               ps.setString(5, entime);
+               ps.executeUpdate();
+               i++;
+           }%>
+     </body>
+</html>

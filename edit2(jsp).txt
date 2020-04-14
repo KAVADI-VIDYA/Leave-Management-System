@@ -1,0 +1,126 @@
+<%-- 
+    Document   : edit2.jsp
+    Created on : Dec 4, 2018, 3:21:44 PM
+    Author     : Vidya
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Edit Class Adjustments</title>
+        <style>
+    
+    header {
+    background-color: #666;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+
+    max-height: 130px;
+    
+}
+   footer {
+    background-color: #777;
+    padding: 10px;
+    align:baseline;
+    text-align: center;
+    color: white;
+    
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    
+    padding: 16px;
+    background-color: white;
+    margin-top: 20px;
+}
+
+input[type=text], input[type=password] {
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 15px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    width: 200px;
+}
+
+.registerbtn:hover {
+    opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+    color: dodgerblue;
+}
+</style>
+
+    </head>
+    <body>
+        <%@page import="java.util.*"%>
+        <%@page import="java.sql.*"%>
+        <header>
+            <h2>Leave Management System</h2>
+        </header>        
+        <% Connection con=(Connection)session.getAttribute("connection");
+            Statement stmt=(Statement)session.getAttribute("statement");
+           String id=(String)session.getAttribute("id");
+           ResultSet rs=stmt.executeQuery("SELECT date1,starttime,endtime,firstname,lastname from class_adjust ca,faculty f where  ca.adjustedto=f.facultyid AND accepted='Rejected' AND id="+id);
+           String sql="UPDATE CLASS_ADJUST SET adjustedto=?,accepted=NULL WHERE date1=? AND starttime=? AND endtime=? AND id="+id;
+           PreparedStatement ps=con.prepareStatement(sql);
+           String readjust;
+           int i=0;
+           while(rs.next())
+           {
+               ps.setString(1,request.getParameter("readjustedto"+i));
+               ps.setDate(2,rs.getDate("date1"));
+               ps.setString(3, rs.getString("starttime"));
+               ps.setString(4, rs.getString("endtime"));
+               ps.executeUpdate();
+               i++;
+   }%>
+    <center><p><b>Your Classes have been Readjusted Successfully!</b></p></center>    
+    <form action="<%=(String)session.getAttribute("jspName")%>>
+          <center><input type="submit" value="OK"/></center>
+    </form>
+    
+    <center><form  action="/Leave_management_system/faculty.jsp">
+                 <button name="back" type="submit" style="background-color:lightsalmon;width: 100px">BACK</button></form></center>
+    <footer class="container-fluid text-center">
+        <p>KLE Dr M S Sheshgiri College of Engineerng AND Technology</p> 
+    </footer>
+    
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<%-- 
+    Document   : hodapproveleave2.jsp
+    Created on : 17 Nov, 2018, 1:51:47 PM
+    Author     : Samprada
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+    </head>
+    <body>
+        <%@page import="java.sql.*" %>
+        <%@page import="java.lang.*" %>
+        <% Statement stmt=(Statement)session.getAttribute("statement");
+           String fid=(String)session.getAttribute("fid");
+           Connection con=(Connection)session.getAttribute("connection");
+           String sql="UPDATE TEMP_LEAVE_DETAILS SET status=?,appr_by='Principal' WHERE id=?";
+           PreparedStatement ps=con.prepareStatement(sql);
+           ResultSet rs=stmt.executeQuery("SELECT tld.id FROM TEMP_LEAVE_DETAILS tld WHERE appr_by='HOD' AND tld.facultyid IN (SELECT facultyid FROM FACULTY WHERE deptid IN (SELECT deptid FROM FACULTY WHERE facultyid='"+fid+"'))");
+           int i=0;
+           while(rs.next())
+           {
+               
+               int id=rs.getInt(1);
+               ps.setString(1, request.getParameter("accept"+i));
+               ps.setInt(2, id);
+               ps.executeUpdate();
+               i++;
+           }%>
+           
+    </body>
+</html>

@@ -1,0 +1,132 @@
+<%-- 
+    Document   : viewleavestatus.jsp
+    Created on : Dec 1, 2018, 5:15:03 PM
+    Author     : Vidya
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+    
+    header {
+    background-color: #666;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+
+    max-height: 130px;
+    
+}
+   footer {
+    background-color: #777;
+    padding: 10px;
+    align:baseline;
+    text-align: center;
+    color: white;
+    
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    
+    padding: 16px;
+    background-color: white;
+    margin-top: 20px;
+}
+
+input[type=text], input[type=password] {
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 15px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    width: 200px;
+}
+
+.registerbtn:hover {
+    opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+    color: dodgerblue;
+}
+</style>
+
+    </head>
+    <body>
+        <header>
+  <h2>Leave Management System</h2>
+</header>
+        <%@page import="java.util.*"%>
+        <%@page import="java.sql.*"%>
+        
+        <% Statement stmt=(Statement)session.getAttribute("statement");
+           String id=request.getParameter("id");
+           ResultSet rs=stmt.executeQuery("SELECT status FROM TEMP_LEAVE_DETAILS WHERE ID="+id);
+           if(rs.next())
+           {
+               String status=rs.getString(1);
+               if(status==null)
+               {
+                   ResultSet rs1=stmt.executeQuery("SELECT (SELECT COUNT(*) FROM CLASS_ADJUST WHERE accepted='Accepted' AND  id="+id+"),(SELECT COUNT(*) FROM CLASS_ADJUST WHERE accepted='Rejected' AND id="+id+"),(SELECT COUNT(*) FROM CLASS_ADJUST WHERE accepted is NULL AND id="+id+") FROM DUAL");
+                   session.setAttribute("id", id);
+        if(rs1.next()){%>
+    <center><p>Number of classes accepted:<%=rs1.getInt(1)%></p><br>
+                   <p>Number of classes rejected:<%=rs1.getInt(2)%></p><br>
+                   <p>Number of classes not yet viewed:<%=rs1.getInt(3)%></p><br></center>
+    <form action="/Leave_management_system/edit.jsp">
+        <center><input type="submit" value="Edit Class Adjustments"/></center>
+    </form>
+    <%}        
+    
+              }else {%>
+    <center><p>Your leave is <%=status%></p></center>
+    <%}
+    } else {
+       rs=stmt.executeQuery("SELECT approve FROM LEAVE_APPLIED WHERE id="+id);
+    if(rs.next())
+{%>
+    <center><p>Your leave is <%=rs.getString("approve")%></p></center>
+    <%}}%>
+    <center><form  action=<%=(String)session.getAttribute("jspName")%>>
+                 <input  type="submit" style="background-color:lightsalmon;width: 150px;height:30px" value="Back"/></form></center>
+    
+    <footer class="container-fluid text-center">
+        <p>KLE Dr M S Sheshgiri College of Engineering And Technology</p>
+    </footer>
+    </body>
+</html>

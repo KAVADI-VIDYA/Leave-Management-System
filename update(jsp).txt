@@ -1,0 +1,41 @@
+<%-- 
+    Document   : update.jsp
+    Created on : Nov 30, 2018, 4:34:44 PM
+    Author     : Vidya
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Update Details</title>
+    </head>
+    <body>
+        <%@page import="java.util.*"%>
+        <%@page import="java.sql.*"%>
+        
+        <% Statement stmt=(Statement)session.getAttribute("statement");
+           String fid1=request.getParameter("fid");
+           String tod1=request.getParameter("tod");
+           String new1=request.getParameter("new");
+           if(tod1.equals("phone"))
+           {
+               stmt.executeUpdate("UPDATE FACULTY SET phone="+new1+" WHERE facultyid='"+fid1+"'");
+           }
+           else if(tod1.equals("design"))
+                stmt.executeUpdate("UPDATE FACULTY SET design='"+new1+"' WHERE facultyid='"+fid1+"'");
+           else if(tod1.equals("email"))
+           {
+               stmt.executeUpdate("UPDATE AUTHENTICATION SET username='"+new1+"' WHERE username=(SELECT username FROM FACULTY WHERE facultyid='"+fid1+"')");
+               stmt.executeUpdate("UPDATE FACULTY SET email='"+new1+"',username='"+new1+"' WHERE facultyid='"+fid1+"'");
+               
+           }
+           else 
+                stmt.executeUpdate("UPDATE FACULTY SET doj='30-JAN-2017' WHERE facultyid='"+fid1+"'");
+           
+           
+        %>
+        
+    </body>
+</html>

@@ -1,0 +1,105 @@
+<%-- 
+    Document   : hodapproveleave.jsp
+    Created on : 13 Nov, 2018, 2:51:44 PM
+    Author     : Samprada
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+    
+    header {
+    background-color: #666;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+
+    max-height: 130px;
+    
+}
+   footer {
+    background-color: #777;
+    padding: 10px;
+    align:baseline;
+    text-align:center;
+    color: white;
+    
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    
+    padding: 16px;
+    background-color: white;
+    margin-top: 20px;
+}
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+</style>
+
+    </head>
+    <body>
+        <header>
+            <h2>Leave Management System</h2>
+        </header>
+        <%@page language="java" import="java.lang.*" %>
+        <%@page language="java" import="java.sql.*" %>  
+        
+        <% Statement stmt=(Statement)session.getAttribute("statement");
+           int i=0;
+           String fid=(String)session.getAttribute("fid");
+           ResultSet rs=stmt.executeQuery("SELECT firstname,lastname,tld.facultyid,leavetype,fromdate,todate,reason FROM FACULTY f,TEMP_LEAVE_DETAILS tld WHERE tld.facultyid=f.facultyid AND appr_by='Principal'");%>
+    <center><form action="/Leave_management_system/principalapproveleave2.jsp">
+               <table cellpadding="2" width="20%" bgcolor="99FFFF" align="center"
+                cellspacing="5">
+                   <tr>
+                       <td>Name</td>
+                       <td>Type of Leave</td>
+                       <td>From Date</td>
+                       <td>To Date</td>
+                       <td>Reason</td>
+                       <td>Approve/Refuse</td>
+                   </tr>
+                 <%while(rs.next())
+                   {
+                        String fname=rs.getString("firstname");
+                        String lname=rs.getString("lastname");
+                        String type=rs.getString("leavetype");
+                        Date fromdate=rs.getDate("fromdate");
+                        Date todate=rs.getDate("todate");
+                        String reason=rs.getString("reason");
+                        String radioname="accept"+i;%>
+                   <tr>
+                       <td><%=fname+" "+lname%></td>
+                       <td><%=type%></td>
+                       <td><%=fromdate%></td>
+                       <td><%=todate%></td>
+                       <td><%=reason%></td>
+                       <td><input type="radio" name=<%= radioname%> value="Approved by Principal" size="10">Approve
+                           <input type="radio" name=<%= radioname%> value="Refused by Principal" size="10">Refuse
+                       </td>
+                   </tr>
+                <% i++;
+         }%>
+               </table>
+               <button type="submit">Submit</button>
+           </form></center>
+         <footer class="container-fluid text-center">
+             <p>KLE M S Sheshgiri College of Engineering and Technology</p>
+         </footer>
+    </body>
+</html>

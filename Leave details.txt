@@ -1,0 +1,31 @@
+create table leave_details(facultyid varchar(10),
+                           availedcasual int,
+                           availedcommitted int,
+                           remcommitted int,
+                           availedmedical int,
+                           primary key(facultyid),
+                           foreign key(facultyid) references faculty(facultyid)
+                          );
+
+
+SQL> desc leave_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FACULTYID                                 NOT NULL VARCHAR2(10)
+ NOLEAVES                                           NUMBER(38)
+ REMLEAVES                                          NUMBER(38)
+
+
+SQL> select * from leave_details;
+
+FACULTYID  AVAILEDCASUAL AVAILEDCOMMITTED REMCOMMITTED AVAILEDMEDICAL
+---------- ------------- ---------------- ------------ --------------
+ece210                 0                0            5              0
+cse113                 0                0            5              0
+cse218                 0                0            5              0
+cse105                 0                0            5              0
+cse102                 0                0            5              0
+cse103                 0                0            5              0
+ece108                 0                0            5              0
+
+7 rows selected.

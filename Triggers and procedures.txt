@@ -1,0 +1,62 @@
+1).CREATE TRIGGER faculty_insert_trigger
+    AFTER INSERT
+    ON FACULTY
+    FOR EACH ROW
+    BEGIN
+    INSERT INTO AUTHENTICATION VALUES(:NEW.username,NULL);
+    INSERT INTO LEAVE_DETAILS VALUES(:NEW.facaltyid,0,0,5,0);
+    
+    END;
+    /
+  
+    CREATE OR REPLACE PROCEDURE updatePassword (pass IN varchar2,user IN varchar2)
+    IS
+    BEGIN
+    UPDATE AUTHENTICATION SET password = pass where username=user;
+    END;
+    /
+  
+  
+
+2).CREATE SEQUENCE leave_id
+   MINVALUE 1
+   START WITH 1
+   INCREMENT BY 1
+   CACHE 10;
+
+
+3).PROCEDURE::
+
+   CREATE OR REPLACE PROCEDURE updateStatus(idnum IN int)
+ IS
+ facid varchar2(10);
+ total_count int;
+ accepted_count int;
+ rejected_count int;
+ design varchar2(25);
+ BEGIN
+ SELECT facultyid INTO facid FROM TEMP_LEAVE_DETAILS WHERE id=idnum;
+ SELECT design INTO design FROM FACULTY WHERE facultyid=facid;
+ SELECT COUNT(*) INTO total_count FROM CLASS_ADJUST WHERE id=idnum;
+ SELECT COUNT(*) INTO accepted_count FROM CLASS_ADJUST WHERE id=idnum AND accepted='Accepted';
+ SELECT COUNT(*) INTO rejected_count FROM CLASS_ADJUST WHERE id=idnum AND accepted='Rejected';
+ IF(total_count=accepted_count) THEN
+	IF design='hod' THEN
+		UPDATE TEMP_LEAVE_DETAILS SET appr_by='Principal' WHERE id=idnum;
+	ELSE
+		UPDATE TEMP_LEAVE_DETAILS SET appr_by='HOD' WHERE id=idnum;
+	END IF;
+ END IF;
+ END;
+ 
+SQL> EXEC UPDATESTATUS(23);
+BEGIN UPDATESTATUS(23); END;
+
+
+
+SQL> CREATE OR REPLACE TRIGGER onupdateclassadjust
+  2  AFTER UPDATE
+  3  ON CLASS_ADJUST
+  4  FOR EACH ROW
+  5  BEGIN
+  6  updatestatus(:OLD.id); 

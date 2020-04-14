@@ -1,0 +1,38 @@
+create table department(deptid int,
+                        deptname varchar(30),
+                        primary key(deptid)
+                       );
+
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTID                                    NOT NULL NUMBER(38)
+ DEPTNAME                                           VARCHAR2(30)
+
+
+
+
+insert into department values(11,'Computer Science');
+insert into department values(12,'Electronics and Communication');
+insert into department values(13,'Civil');
+insert into department values(14,'Mechanical');
+insert into department values(15,'Electrical and Electronics');
+insert into department values(16,'Chemical');
+insert into department values(17,'Biomedical');
+
+
+
+SQL> select * from department;
+
+    DEPTID DEPTNAME
+---------- ------------------------------
+        11 Computer Science
+        12 Electronics and Communication
+        13 Civil
+        14 Mechanical
+        15 Electrical and Electronics
+        16 Chemical
+        17 Biomedical
+
+7 rows selected.

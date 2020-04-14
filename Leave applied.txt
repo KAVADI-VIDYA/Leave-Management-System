@@ -1,0 +1,20 @@
+create table Leave_applied(facultyid varchar(10),
+                           leavetype varchar(12),
+                           todate date,
+                           fromdate date,
+                           applydate date,
+                           reason varchar(50),
+                           approve varchar(10),
+                           primary key(facultyid,todate,fromdate),
+                           foreign key(facultyid) references faculty(facultyid)
+                          );
+
+SQL> desc Leave_applied;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FACULTYID                                 NOT NULL VARCHAR2(10)
+ LEAVETYPE                                          VARCHAR2(12)
+ TODATE                                    NOT NULL DATE
+ FROMDATE                                  NOT NULL DATE
+ APPLYDATE                                          DATE
+ APPROVE                                            VARCHAR2(10) 

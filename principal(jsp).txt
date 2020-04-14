@@ -1,0 +1,136 @@
+<%-- 
+    Document   : faculty.jsp
+    Created on : 6 Nov, 2018, 7:22:41 PM
+    Author     : Samprada
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+       color: white;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 500px }
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+      
+    }
+    
+    /* Set black background color, white text and some padding */
+   footer {
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    
+}
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+    /* Style the header */
+header {
+    background-color: #666;
+    padding: 10px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+    height: 80px;
+}
+  </style>
+  
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  
+    </head>
+    <body>
+        <%@ page language="java" import="java.sql.*"%>
+        <% String fid=(String)session.getAttribute("fid");
+           ResultSet rs=((Statement)session.getAttribute("statement")).executeQuery("SELECT firstname,lastname,email,design,deptname FROM FACULTY f,DEPARTMENT d WHERE f.deptid=d.deptid AND facultyid='"+fid+"'");
+           String fname="",lname="",email="",desg="",dept="";
+           session.setAttribute("jspName", "/Leave_management_system/principal.jsp");
+           while(rs.next())
+           {
+              fname=rs.getString(1);
+              lname=rs.getString(2);
+              email=rs.getString(3);
+              desg=rs.getString(4);
+              dept=rs.getString(5);
+           }%>
+      <header>
+        <h2>Leave Management System</h2>
+      </header>
+
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <center><h2>Principal</h2></center>
+            </div>
+        </div>
+      </nav>
+  
+        <div class="container-fluid text-left">   
+    
+  <div class="row content">
+      <div class="col-sm-2 sidenav">
+        
+          <center><form method="get" action="/Student_Project_Allocation/addprofessor.html" style="margin-top: 0; margin-bottom: 8px;margin-left: 0px">
+			<button type="submit">View Faculty Leave Details</button>
+		  </form></br>
+		  
+                  <form method="get" action="/Student_Project_Allocation/addprofessor.html" style="margin-top: 0; margin-bottom: 8px;margin-left: 0px">
+			<button type="submit">Approve Leave</button>
+		  </form></br>
+		  
+                  <form method="get" action="/Leave_management_system/changepassword.html"
+		  style="margin-top: 0; margin-bottom: 8px">
+			<button type="submit">Change Password</button>
+		  </form>  </br>
+
+		  <form method="get" action="/Leave_management_system/logout.jsp"
+		  style="margin-top: 0; margin-bottom: 8px">
+			<button type="submit">Logout</button>
+                  </form> </br></center>
+		</div>
+		<div class="col-sm-8 text-left"> 
+                   <center><label><h3><b>Name:</b></h3></label><label style="margin-left:8px"><h4><%=fname+" "+lname%></h4></label><br>
+                        <label><h3><b>Department:</b></h3></label><label style="margin-left:8px"><h4><%=dept%></h4></label><br>
+                        <label><h3><b>Designation:</b></h3></label><label style="margin-left:8px"><h4><%=desg%></h4></label><br>
+                        <label><h3><b>Email id:</b></h3></label><label style="margin-left:8px"><h4><%=email%></h4></label><br> 
+		</div>
+	</div>
+    </div>
+
+    <footer class="container-fluid text-center">
+        <p>KLE Society's Dr. M. S. Sheshgiri College of Engineering and Technology.</p>
+    </footer>
+    
+    </body>
+</html>

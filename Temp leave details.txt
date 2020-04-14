@@ -1,0 +1,48 @@
+create table temp_leave_details(facultyid varchar(10),
+                                leavetype varchar(12),
+                                todate date,
+                                fromdate date,
+                                applydate date,
+                                reason varchar(50),
+                                appr_by varchar(10),
+                                status varchar(20),
+                                primary key(facultyid,todate,fromdate),
+                                foreign key(facultyid) references faculty(facultyid)
+                               );
+
+
+SQL> desc  temp_leave_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FACULTYID                                 NOT NULL VARCHAR2(10)
+ LEAVETYPE                                          VARCHAR2(12)
+ TODATE                                    NOT NULL DATE
+ FROMDATE                                  NOT NULL DATE
+ APPLYDATE                                          DATE
+ REASON                                             VARCHAR2(50)
+ APPR_BY                                            VARCHAR2(10)
+ STATUS                                             VARCHAR2(20)
+
+
+SQL> select * from temp_leave_details;
+
+FACULTYID  LEAVETYPE    TODATE    FROMDATE  APPLYDATE
+---------- ------------ --------- --------- ---------
+REASON                                             APPR_BY
+-------------------------------------------------- ----------
+STATUS                            ID
+------------------------- ----------
+cse105     casual       07-DEC-18 05-DEC-18 04-DEC-18
+out of station                                     HOD
+                                  32
+
+cse105     casual       13-DEC-18 11-DEC-18 04-DEC-18
+out of station                                     HOD
+                                  33
+
+FACULTYID  LEAVETYPE    TODATE    FROMDATE  APPLYDATE
+---------- ------------ --------- --------- ---------
+REASON                                             APPR_BY
+-------------------------------------------------- ----------
+STATUS                            ID
+------------------------- ----------

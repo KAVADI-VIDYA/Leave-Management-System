@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <link rel='stylesheet' id='admin-css'  href='admin.css' type='text/css' media='all' />
+ <link rel='stylesheet' id='colors-fresh-css'  href='colors-fresh.css' type='text/css' media='all' />
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+ <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+ <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+ <link rel="stylesheet" href="/resources/demos/style.css" />
+ 
+<style>
+    
+    header {
+    background-color: #666;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+
+    max-height: 130px;
+    
+}
+   footer {
+    background-color: #777;
+    padding: 10px;
+    align:baseline;
+    text-align: center;
+    color: white;
+    
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    
+    padding: 16px;
+    background-color: white;
+    margin-top: 20px;
+}
+
+input[type=text] {
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+select{
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+select:focus{
+    background-color: #ddd;
+    outline: none;
+}
+
+input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 15px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.registerbtn:hover {
+    opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+    color: dodgerblue;
+}
+</style>
+<script>
+ $(function(){
+        $( "#datepicker" ).datepicker({dateFormat:'dd-M-yy'});
+    });
+  </script>
+
+    </head>
+    <body>
+        <header>
+  <h2>Leave Management System</h2>
+</header>
+      
+    <hr>
+    <form action="/Leave_management_system/registrationform.jsp" name="Faculty Registration" onsubmit="return(validate());">
+
+<table cellpadding="2" width="20%" bgcolor="99FFFF" align="center"
+cellspacing="5">
+
+<tr>
+<td colspan=2>
+<center><font size=4><b>Registration Form</b></font></center>
+</td>
+</tr>
+
+<tr>
+<td>Faculty id</td>
+<td><input type=text name="fid" id="fid" size="30"></td>
+</tr>
+
+<tr>
+<td>First Name</td>
+<td><input type=text name="fname" id="textname" size="30"></td>
+</tr>
+
+<tr>
+<td>Last Name</td>
+<td><input type=text name="lname" id="textname" size="30"></td>
+</tr>
+
+<tr>
+<td>Gender</td>
+<td><input type="radio" name="sex" value="male" size="10">Male
+<input type="radio" name="sex" value="Female" size="10">Female</td>
+</tr>
+
+
+<tr>
+<td>Email Id</td>
+<td><input type="text" name="emailid" id="emailid" size="30"></td>
+</tr>
+
+<tr>
+<td>Date of Join</td>
+<td><input type="text" name="doj" id="datepicker" size="11" placeholder="DD-MM-YYYY">
+</td>
+</tr>
+
+<tr>
+<td>Designation</td>
+<td><input type="text" name="designation" id="designation" size="30"></td>
+</tr>
+
+<tr>
+<td>Department</td>
+<td>
+    <select name="department">
+	<option value="-1" selected>select..</option>
+	<option value="Computer Science">Computer Science</option>
+	<option value="Electronics and Communication">Electronics and Communication</option>
+	<option value="Electrical and Electronics">Electrical and Electronics</option>
+        <option value="Mechanical">Mechanical</option>
+        <option value="Civil">Civil</option>
+        <option value="Chemical">Chemical</option>
+        <option value="Biomedical">Biomedical</option>
+	</select><br></td>
+</tr>
+
+<tr>
+<td>Mobile No</td>
+<td><input type="text" name="mobileno" id="mobileno" size="30"></td>
+</tr>
+</table>
+
+        <center><input type="reset" style="margin-bottom:20px"/>
+            <input type="submit" value="Register" style="margin-bottom:20px"/></center>
+</form>
+
+<footer class="container-fluid text-center">
+  <p>KLE Society's Dr. M. S. Sheshgiri College of Engineering and Technology.</p>
+</footer>
+
+    </body>
+</html>

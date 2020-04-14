@@ -1,0 +1,78 @@
+<%-- 
+    Document   : cancelleave.jsp
+    Created on : 11 Nov, 2018, 2:49:21 PM
+    Author     : Samprada
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+    
+    header {
+    background-color: #666;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+
+    max-height: 130px;
+    
+}
+   footer {
+    background-color: #777;
+    padding: 10px;
+    align:baseline;
+    text-align: center;
+    color: white;
+    
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    
+    padding: 16px;
+    background-color: white;
+    margin-top: 20px;
+}
+</style>
+    </head>
+    <body>
+        <%@page language="java" import="java.lang.*" %>
+        <%@page language="java" import="java.sql.*" %>
+        
+        <% String fid=(String)session.getAttribute("fid");
+           String fromdate=request.getParameter("fromdate");
+           String todate=request.getParameter("todate");
+           Statement stmt=(Statement)session.getAttribute("statement");
+           int res=stmt.executeUpdate("DELETE FROM LEAVE_APPLIED WHERE facultyid='"+fid+"' AND fromdate='"+fromdate+"' AND todate='"+todate+"'");
+           if(res==0)
+           {
+               stmt.executeUpdate("DELETE FROM CLASS_ADJUST WHERE facultyid='"+fid+"' AND date1 BETWEEN '"+fromdate+"' AND '"+todate+"'");
+               stmt.executeUpdate("DELETE FROM TEMP_LEAVE_DETAILS WHERE facultyid='"+fid+"' AND fromdate='"+fromdate+"' AND todate='"+todate+"'");%>
+               <header>
+                   <h2>Leave Management System</h2>
+               </header>
+               <center><form action=(String)session.getAttribute("jspName")>
+                   <h3>Leave Canceled</h3>
+                   <input type="submit" value="OK"/>
+               </form></center>
+               <footer class="container-fluid text-center">
+                   <p>KLE M S Sheshgiri College of Engineering</p>
+               </footer>
+         <%}else{
+               out.println("<script> alert('Leave has already been approved');</script>");
+               response.sendRedirect((String)session.getAttribute("jspName"));
+           }%>
+           
+    </body>
+</html>

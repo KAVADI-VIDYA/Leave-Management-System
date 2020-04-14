@@ -1,0 +1,148 @@
+<%-- 
+    Document   : edit.jsp
+    Created on : Dec 4, 2018, 1:36:06 PM
+    Author     : Vidya
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Edit Class Adjustments</title>
+        <style>
+    
+    header {
+    background-color: #666;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+
+    max-height: 130px;
+    
+}
+   footer {
+    background-color: #777;
+    padding: 10px;
+    align:baseline;
+    text-align: center;
+    color: white;
+    
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    
+    padding: 16px;
+    background-color: white;
+    margin-top: 20px;
+}
+
+input[type=text], input[type=password] {
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 15px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    width: 200px;
+}
+
+.registerbtn:hover {
+    opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+    color: dodgerblue;
+}
+</style>
+
+    </head>
+    <body>
+        <header>
+            <h2>Leave Management System</h2>
+        </header>
+        <%@page import="java.util.*"%>
+        <%@page import="java.sql.*"%>
+        
+        <% Statement stmt=(Statement)session.getAttribute("statement");
+           int i=0;
+           String id=(String)session.getAttribute("id");
+           ResultSet rs=stmt.executeQuery("SELECT date1,starttime,endtime,firstname,lastname from class_adjust ca,faculty f where  ca.adjustedto=f.facultyid AND accepted='Rejected' AND id="+id);
+           %>
+    <center><label><b><h2>Rejected Classes to be Adjusted</h2></b></label></center>
+    <center><form action="/Leave_management_system/edit2.jsp">
+               <table cellpadding="2" width="20%" bgcolor="99FFFF" align="center"
+                cellspacing="5">
+  
+           <tr>
+                <td>Date</td>
+                <td>Start time</td>
+                <td>End time</td>
+                <td>Adjusted to</td>
+                <td>Re-adjust to</td>
+           </tr>
+          <% while(rs.next())
+           {
+          String readjustedto="readjustedto"+i;
+          %>
+           <tr>
+               <td><%=rs.getDate("date1")%></td>
+               <td><%=rs.getString("starttime")%></td>
+               <td><%=rs.getString("endtime")%></td>
+               <td><%=rs.getString("firstname")+" "+rs.getString("lastname")%></td>
+               <td><select name=<%=readjustedto%>>
+                  <option value="-1" selected>select...</option>
+                  <% String fid=(String)session.getAttribute("fid");
+                     ResultSet rs1=stmt.executeQuery("SELECT facultyid,firstname,lastname FROM FACULTY WHERE NOT facultyid='"+fid+"'");
+                     String facid="",fname="",lname="";
+                     while(rs1.next())
+                     {
+                         facid=rs1.getString(1);
+                         fname=rs1.getString(2);
+                         lname=rs1.getString(3);%>
+                         <option value=<%=facid%>><%=fname+" "+lname%></option>
+                         
+                     <%}%>
+               </select>
+               </td>
+           </tr>
+           <%i++;}%>    
+               </table>
+               <center><input type="submit" value="Edit"/></center>
+        </form>
+               <footer class="container-fluid text-center">
+                   <p>KLE Dr M S Sheshgiri College of Engineering And Technology</p>
+               </footer>
+    </body>
+</html>

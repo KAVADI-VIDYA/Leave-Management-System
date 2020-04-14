@@ -1,0 +1,57 @@
+<%-- 
+    Document   : remove.jsp
+    Created on : Nov 30, 2018, 3:48:22 PM
+    Author     : Vidya
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+    
+    header {
+    background-color: #666;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+
+    max-height: 130px;
+    
+}
+   footer {
+    background-color: #777;
+    padding: 10px;
+    align:baseline;
+    text-align: center;
+    color: white;
+    
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+</style>
+    </head>
+    <body>
+        <%@page import="java.util.*"%>
+        <%@page import="java.sql.*"%>
+        <header>
+            <h2>Leave Management System</h2>
+        </header>
+        <%Statement stmt=(Statement)session.getAttribute("statement");
+          String fid=request.getParameter("name");
+          stmt.executeUpdate("DELETE FROM CLASS_ADJUST WHERE facultyid='"+fid+"'");
+          stmt.executeUpdate("DELETE FROM TEMP_LEAVE_DETAILS WHERE facultyid='"+fid+"'");
+          stmt.executeUpdate("DELETE FROM LEAVE_DETAILS WHERE facultyid='"+fid+"'");
+          stmt.executeUpdate("DELETE FROM LEAVE_APPLIED WHERE facultyid='"+fid+"'");
+          stmt.executeUpdate("DELETE FROM FACULTY WHERE facultyid='"+fid+"'");
+         %>
+         <h3>Faculty details removed successfully</h3>
+         <footer class="container-fluid text-center">
+             <p>KLE M S Sheshgiri College of Engineering And Technology</p>
+         </footer>
+    </body>
+</html>

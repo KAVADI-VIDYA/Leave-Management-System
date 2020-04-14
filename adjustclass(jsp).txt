@@ -1,0 +1,188 @@
+
+<%-- 
+    Document   : adjustclass.jsp
+    Created on : 9 Nov, 2018, 7:49:31 PM
+    Author     : vidya
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <link rel='stylesheet' id='admin-css'  href='admin.css' type='text/css' media='all' />
+ <link rel='stylesheet' id='colors-fresh-css'  href='colors-fresh.css' type='text/css' media='all' />
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+ <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+ <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+ <link rel="stylesheet" href="/resources/demos/style.css" />
+    
+<style>
+    
+    header {
+    background-color: #666;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+
+    max-height: 130px;
+    
+}
+   footer {
+    background-color: #777;
+    padding: 10px;
+    align:baseline;
+    text-align: center;
+    color: white;
+    
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    
+    padding: 16px;
+    background-color: white;
+    margin-top: 20px;
+}
+
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+</style>
+<script>
+    $(function(){
+        $( "#datepicker" ).datepicker({dateFormat:'dd-M-yy'});
+        
+    });
+    function addRow(tableID) {
+	$(".datepicker").datepicker("destroy");
+        var table = document.getElementById(tableID);
+	var rowCount = table.rows.length;
+	var row = table.insertRow(rowCount);
+	var colCount = table.rows[0].cells.length;
+	for(var i=0; i<colCount; i++) {
+            var newcell= row.insertCell(i);
+            newcell.innerHTML = table.rows[0].cells[i].innerHTML;
+            //alert(newcell.childNodes);
+            switch(newcell.childNodes[0].type) {
+                case "text":
+			newcell.childNodes[0].value="";
+			newcell.childNodes[0].id='datepicker';
+                        break;
+		case "select-one":
+			newcell.childNodes[0].selectedIndex = 0;
+			break;
+		}
+	}
+        var dateAssignedId = Math.round(new Date().getTime() + (Math.random() * 100));
+        $(row).find('.datepicker ')[0].id = dateAssignedId; 
+        $(".datepicker").datepicker({dateFormat:"dd-M-yy"});
+}
+
+    </script>
+    </head>
+    <body>
+        <%@page language="java" import="java.lang.*" %>
+        <%@page language="java" import="java.sql.*" %>
+        
+        <header>
+            <h2>Leave Management System</h2>
+        </header>
+<br><center><h1>Adjust Class</h1> </center>
+<center><input type="button" value="Adjust Another" onclick="addRow('dataTable')"/></center>  
+<form  action="/Leave_management_system/adjustclass2.jsp">
+  <div class="container">
+  <hr> 
+  <center><table id='dataTable' width="350px" border="1">
+      <tr>
+          <td><input type="text" id="datepicker" class="datepicker" name='date' size='11' placeholder="Date" /></td>
+          <td>
+          <select name="starttime">
+          <option value="-1" selected>select Start time</option>
+          <option value="08:00am">08:00am</option>
+          <option value="09:00am">09:00am</option>
+          <option value="10:00am">10:00am</option>
+          <option value="10:30am">10:30am</option>
+	  <option value="11:30am">11:30am</option>
+	  <option value="12:30pm">12:30pm</option>
+	  <option value="01:30pm">01:30pm</option>
+	  <option value="02:30pm">02:30pm</option>
+	  <option value="03:30pm">03:30pm</option>
+	  </select>
+          </td>
+          <td><select name="endtime">
+              <option value="-1" selected>select End Time</option>
+              <option value="09:00am">09:00am</option>
+              <option value="10:00am">10:00am</option>
+              <option value="11:00am">11:00am</option>
+              <option value="11:30am">11:30am</option>
+              <option value="12:30pm">12:30pm</option>
+              <option value="01:30pm">01:30pm</option>
+              <option value="02:30pm">02:30pm</option>
+              <option value="03:30pm">03:30pm</option>
+              <option value="04:30pm">04:30pm</option>
+              </select></center><br>
+          </td>
+          <td><select name="semester">
+              <option value="-1" selected>select Semester</option>
+              <option value="1">I</option>
+              <option value="2">II</option>
+              <option value="3">III</option>
+              <option value="4">IV</option>
+              <option value="5">V</option>
+              <option value="6">VI</option>
+              <option value="7">VII</option>
+              <option value="8">VIII</option>
+              </select></center><br>
+          </td>
+         <td><select name="division">
+              <option value="-1" selected>select Division</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+              </select></center><br>
+          </td>
+        
+          <td><select name="adjustedto">
+                  <option value="-1" selected>Adjusted to</option>
+                  <% String fid=(String)session.getAttribute("fid");
+                     Statement stmt=(Statement)session.getAttribute("statement");
+                     ResultSet rs=stmt.executeQuery("SELECT facultyid,firstname,lastname FROM FACULTY WHERE NOT facultyid='"+fid+"'");
+                     String facid="",fname="",lname="";
+                     while(rs.next())
+                     {
+                         facid=rs.getString(1);
+                         fname=rs.getString(2);
+                         lname=rs.getString(3);%>
+                         <option value=<%=facid%>><%=fname+" "+lname%></option>
+                         
+                     <%}%>
+               </select>
+          </td>
+          
+      </tr>
+              </table></center><br>
+  <center><button type="submit">Submit</button></center>
+        </div>
+</form>
+            <footer class="container-fluid text-center">
+                <p>KLE M S Sheshgiri College of Engineering and Technology</p>
+            </footer>               }
+               
+    </body>
+</html>

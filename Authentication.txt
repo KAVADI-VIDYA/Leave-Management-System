@@ -1,0 +1,26 @@
+create table authentication(username varchar(30),
+                            password varchar(20),
+                            primary key(username)
+                           );
+
+
+SQL> desc authentication;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ USERNAME                                  NOT NULL VARCHAR2(15)
+ PASSWORD                                           VARCHAR2(20)
+
+
+SQL> select * from authentication;
+
+USERNAME                       PASSWORD
+------------------------------ --------------------
+rajeshri@gmail.com             Rajeshri123
+savita@gmail.com               Savita123
+katageri@gmail.com             Katageri123
+basavaraj@gmail.com            Basavaraj123
+manisha@gmail.com              Manisha123
+patil@gmail.com                Patil123
+vidya@gmail.com                Vidya123
+
+7 rows selected.

@@ -1,0 +1,104 @@
+<%--- 
+    Document   : adjustmentdetails.jsp
+    Created on : 12 Nov, 2018, 1:09:13 PM
+    Author     : Samprada
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+    </head>
+    <body>
+        <%@page language="java" import="java.lang.*" %>
+        <%@page language="java" import="java.sql.*" %>
+        
+        <% Statement stmt=(Statement)session.getAttribute("statement");
+           String fid=(String)session.getAttribute("fid");
+           String fname="",lname="",facid="",sttime="",entime="",semester="",division="",accepted="";
+           Date date=null;
+           int i=0;
+           ResultSet rs=stmt.executeQuery("SELECT firstname,lastname,ca.facultyid,date1,starttime,endtime,semester,division,accepted FROM FACULTY f,CLASS_ADJUST ca WHERE f.facultyid=ca.facultyid AND adjustedto='"+fid+"' AND accepted is NULL");%>
+    <center><label><b><h2>Class Adjustments to be Approved</h2></b></label></center>
+    <center><form action="/Leave_management_system/adjustmentdetails2.jsp">
+               <table cellpadding="2" width="20%" bgcolor="99FFFF" align="center"
+                cellspacing="5">
+  
+           <tr>
+                <td>Name</td>
+                <td>Date</td>
+                <td>Start time</td>
+                <td>End time</td>
+                <td>Semester</td>
+                <td>Division</td>
+                <td>Accept/Reject</td>
+           </tr>
+           
+        <% while(rs.next())
+           {
+               fname=rs.getString("firstname");
+               lname=rs.getString("lastname");
+               facid=rs.getString("facultyid");
+               date=rs.getDate("date1");
+               sttime=rs.getString("starttime");
+               entime=rs.getString("endtime");
+               semester=rs.getString("semester");
+               division=rs.getString("division");
+               accepted=rs.getString("accepted");
+               String radioname="accept"+i;%>
+                   <tr>
+                       <td><%=fname+" "+lname%></td>
+                       <td><%=date%></td>
+                       <td><%=sttime%></td>
+                       <td><%=entime%></td>
+                       <td><%=semester%></td>
+                       <td><%=division%></td>
+                       <td><input type="radio" name=<%= radioname%> value="Accepted" size="10">Accept
+                           <input type="radio" name=<%= radioname%> value="Rejected" size="10">Reject
+                       </td>
+                   </tr>
+                <% i++;
+           } %>
+          </table>
+          <input type="submit" value="Submit"/>
+           </form></center>
+    <center><label><b><h2>Your Accepted Classes</h2></b></label></center>
+          <% ResultSet rs1=stmt.executeQuery("SELECT firstname,lastname,ca.facultyid,date1,starttime,endtime,semester,division,accepted FROM FACULTY f,CLASS_ADJUST ca WHERE f.facultyid=ca.facultyid AND adjustedto='"+fid+"' AND accepted='Accepted'");%>
+          <center><table cellpadding="2" width="20%" bgcolor="99FFFF" align="center"
+            cellspacing="5">
+  
+           <tr>
+                <td>Name</td>
+                <td>Date</td>
+                <td>Start time</td>
+                <td>End time</td>
+                <td>Semester</td>
+                <td>Division</td>                
+           </tr>
+           
+        <% while(rs1.next())
+           {
+               fname=rs1.getString("firstname");
+               lname=rs1.getString("lastname");
+               facid=rs1.getString("facultyid");
+               date=rs1.getDate("date1");
+               sttime=rs1.getString("starttime");
+               entime=rs1.getString("endtime");
+               semester=rs1.getString("semester");
+               division=rs1.getString("division");
+               accepted=rs1.getString("accepted");%>
+                   <tr>
+                       <td><%=fname+" "+lname%></td>
+                       <td><%=date%></td>
+                       <td><%=sttime%></td>
+                       <td><%=entime%></td>
+                       <td><%=semester%></td>
+                       <td><%=division%></td>
+                       </td>
+                   </tr>
+          <%}%>
+           
+    </body>
+</html>

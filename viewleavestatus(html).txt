@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    <style>
+    
+    header {
+    background-color: #666;
+    padding: 5px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+
+    max-height: 130px;
+    
+}
+   footer {
+    background-color: #777;
+    padding: 10px;
+    align:baseline;
+    text-align: center;
+    color: white;
+    
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    
+    padding: 16px;
+    background-color: white;
+    margin-top: 20px;
+}
+
+input[type=text], input[type=password] {
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 15px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    width: 200px;
+}
+
+.registerbtn:hover {
+    opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+    color: dodgerblue;
+}
+</style>
+
+    </head>
+    <body>
+        <header>
+  <h2>Leave Management System</h2>
+</header>
+    
+<form  method="get" action="/Leave_management_system/viewleavestatus.jsp">
+  <div class="container">
+      
+      <center><h1>Leave Status</h1> </center>
+      
+    <hr>
+    
+    <center><label for="id"><b>Leave ID</b></label>
+    <input type="text" placeholder="Enter the Leave ID" name="id" required><br></center>
+    
+    <center><input type="submit" value="Submit" style="background-color:lightgreen;width: 100px"></center>
+  </div></form>
+    <center>
+            <button name="back" type="submit" style="background-color:lightsalmon;width: 100px;margin-left:100px" onclick="history.back()">BACK</button></center>
+        <footer class="container-fluid text-center">
+            <p>KLE Dr M S Sheshgiri College of Engineering And Technology</p>
+        </footer>
+    </body>
+</html>
